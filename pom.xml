@@ -25,7 +25,7 @@
     <spring-cloud-services.version>2.0.3.RELEASE</spring-cloud-services.version>
     <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
         <distribution.management.release.id>bintray</distribution.management.release.id>
-        <distribution.management.release.url>https://api.bintray.com/maven/ciberkleid/maven-repo/greeting-ui
+        <distribution.management.release.url>https://api.bintray.com/maven/dpfeffer/maven-repo/greeting-ui
         </distribution.management.release.url>
         <!--Tell stubrunner app to start this stub-->
         <stubrunner.ids>io.pivotal:fortune-service:1.0.0.M1-20180725_221358-VERSION:stubs:10000</stubrunner.ids>
