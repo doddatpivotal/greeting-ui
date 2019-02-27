@@ -21,7 +21,6 @@ public class E2eTests {
 
 	RestTemplate restTemplate = new RestTemplate();
 
-	@Ignore
 	@Test
 	public void should_return_a_fortune() {
 		ResponseEntity<String> response = this.restTemplate
