@@ -1,6 +1,7 @@
 package e2e;
 
 import org.assertj.core.api.BDDAssertions;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,6 +21,7 @@ public class E2eTests {
 
 	RestTemplate restTemplate = new RestTemplate();
 
+	@Ignore
 	@Test
 	public void should_return_a_fortune() {
 		ResponseEntity<String> response = this.restTemplate
