@@ -31,7 +31,7 @@ public class FortuneService {
   }
 
   public String defaultFortune(Throwable throwable){
-    logger.debug("Returning fallback fortune. Error: {}", throwable.getMessage());
+    logger.debug("Returning fallback fortune. Error: {}", throwable.toString());
     return "This fortune is no good. Try another.";
   }
 
