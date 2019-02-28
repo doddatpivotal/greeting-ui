@@ -17,10 +17,10 @@ import org.springframework.test.context.junit4.SpringRunner;
         "spring.cloud.circuit.breaker.enabled=false",
         "hystrix.stream.queue.enabled=false",
         "fortuneServiceURL=http://fortune-service"})
-//@AutoConfigureStubRunner(ids = {"io.pivotal:fortune-service:1.0.0.M1-20180725_221358-VERSION"},
-@AutoConfigureStubRunner(ids = {"io.pivotal:fortune-service:+"}
-//    , stubsMode = StubRunnerProperties.StubsMode.LOCAL
-        ,repositoryRoot = "${REPO_WITH_BINARIES}"
+@AutoConfigureStubRunner(
+    ids = {"io.pivotal:fortune-service:+"},
+    stubsMode = StubRunnerProperties.StubsMode.REMOTE,
+    repositoryRoot = "${REPO_WITH_BINARIES}"
 )
 
 public class FortuneServiceTests {
