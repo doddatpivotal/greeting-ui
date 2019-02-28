@@ -22,11 +22,10 @@ public class FortuneService {
     this.restTemplate = restTemplate;
   }
 
-//  @HystrixCommand(fallbackMethod = "defaultFortune")
+  @HystrixCommand(fallbackMethod = "defaultFortune")
   public String getFortune() {
     logger.debug("Using fortuneServiceURL=[{}]", fortuneServiceURL);
-    RestTemplate rt = new RestTemplate();
-    String fortune = rt.getForObject(fortuneServiceURL, String.class);
+    String fortune = restTemplate.getForObject(fortuneServiceURL, String.class);
     logger.debug("Got fortune=[{}]", fortune);
     return fortune;
   }
