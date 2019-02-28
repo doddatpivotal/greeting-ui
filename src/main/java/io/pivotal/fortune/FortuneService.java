@@ -37,8 +37,12 @@ public class FortuneService {
       ServiceInstance instance = loadBalancer.choose("fortune-service");
       URI secondServiceUri = URI.create(String.format("http://%s:%s", instance.getHost(), instance.getPort()));
 
-//      System.out.println(secondServiceUri); // logs http://192.168.0.205:8090, check log below
-      logger.debug(secondServiceUri.toString());
+      logger.debug("fortune-service entry: " + secondServiceUri.toString());
+
+    ServiceInstance instance2 = loadBalancer.choose("greeting-ui");
+    URI secondServiceUri2 = URI.create(String.format("http://%s:%s", instance.getHost(), instance.getPort()));
+
+    logger.debug("greeting-ui: " + secondServiceUri2.toString());
 
       RestTemplate rt = new RestTemplate();
 
