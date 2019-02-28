@@ -16,19 +16,19 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.0.7.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
-  </parent>
+    </parent>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <java.version>1.8</java.version>
-    <spring-cloud-services.version>2.0.3.RELEASE</spring-cloud-services.version>
-    <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <spring-cloud-services.version>2.0.3.RELEASE</spring-cloud-services.version>
+        <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
         <distribution.management.release.id>bintray</distribution.management.release.id>
         <distribution.management.release.url>https://api.bintray.com/maven/dpfeffer/maven-repo/greeting-ui
         </distribution.management.release.url>
         <!--Tell stubrunner app to start this stub-->
-        <stubrunner.ids>io.pivotal:fortune-service:LATEST:stubs:10000</stubrunner.ids>
+        <stubrunner.ids>io.pivotal:fortune-service:1.0.0.M1-20190228_125827-VERSION:stubs:10000</stubrunner.ids>
     </properties>
 
     <dependencies>
