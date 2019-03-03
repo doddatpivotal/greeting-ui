@@ -10,50 +10,47 @@ import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.URI;
-
 @Component
 public class FortuneService {
 
-  Logger logger = LoggerFactory
-          .getLogger(FortuneService.class);
+    Logger logger = LoggerFactory
+        .getLogger(FortuneService.class);
 
-  private final RestTemplate restTemplate;
+    RestTemplate restTemplate = new RestTemplate();
 
-  @Value("${fortuneServiceURL:https://fortune-service}")
-  String fortuneServiceURL;
+    private LoadBalancerClient loadBalancer;
 
-  public FortuneService(RestTemplate restTemplate) {
-    this.restTemplate = restTemplate;
-  }
+    public FortuneService(LoadBalancerClient loadBalancer) {
+        this.loadBalancer = loadBalancer;
+    }
 
-  @Autowired
-  private LoadBalancerClient loadBalancer;
+    @HystrixCommand(fallbackMethod = "defaultFortune")
+    public String getFortune() {
 
-  @HystrixCommand(fallbackMethod = "defaultFortune")
-  public String getFortune() {
-    logger.debug("Using fortuneServiceURL=[{}]", fortuneServiceURL);
+        // Using service template because of issue getting stub runner to register with https properly
+        ServiceInstance instance = loadBalancer.choose("fortune-service");
 
-      ServiceInstance instance = loadBalancer.choose("fortune-service");
-      URI secondServiceUri = URI.create(String.format("http://%s:%s", instance.getHost(), instance.getPort()));
+        String resolvedAndCalculatedUrl = instance.getUri().toString();
 
-      logger.debug("fortune-service entry: " + secondServiceUri.toString());
+        logger.debug("Following instance was returned for fortune-service. " + resolvedAndCalculatedUrl);
 
-    ServiceInstance instance2 = loadBalancer.choose("greeting-ui");
-    URI secondServiceUri2 = URI.create(String.format("http://%s:%s", instance.getHost(), instance.getPort()));
+        if(instance.getPort() == 80) {
+            // In this case, we have the issue with stub runner registering with http on cloud foundry
+            resolvedAndCalculatedUrl = "https://" + instance.getHost();
+            logger.debug("Forcing https.  Using this Url: " + resolvedAndCalculatedUrl);
+        }
 
-    logger.debug("greeting-ui: " + secondServiceUri2.toString());
+        String fortune = restTemplate.getForObject(resolvedAndCalculatedUrl, String.class);
 
-      RestTemplate rt = new RestTemplate();
+        logger.debug("Got fortune=[{}]", fortune);
 
-    String fortune = rt.getForObject("https://" + instance.getHost(), String.class);
-    logger.debug("Got fortune=[{}]", fortune);
-    return fortune;
-  }
+        return fortune;
 
-  public String defaultFortune(Throwable throwable){
-    logger.debug("Returning fallback fortune. Error: {}", throwable.toString());
-    return "This fortune is no good. Try another.";
-  }
+    }
+
+    public String defaultFortune(Throwable throwable) {
+        logger.debug("Returning fallback fortune. Error: {}", throwable.toString());
+        return "This fortune is no good. Try another.";
+    }
 
 }

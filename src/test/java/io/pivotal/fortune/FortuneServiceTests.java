@@ -17,7 +17,6 @@ import org.springframework.test.context.junit4.SpringRunner;
         "spring.application.name=greeting-ui",
         "spring.cloud.circuit.breaker.enabled=false",
         "hystrix.stream.queue.enabled=false",
-        "fortuneServiceURL=http://fortune-service",
         "logging.level.org.apache.http=DEBUG"})
 @AutoConfigureStubRunner(
     ids = {"io.pivotal:fortune-service:+"},
@@ -31,7 +30,6 @@ public class FortuneServiceTests {
     FortuneService fortuneService;
 
 
-    @Ignore
     @Test
     public void shouldSendRequestToFortune() {
         // when
