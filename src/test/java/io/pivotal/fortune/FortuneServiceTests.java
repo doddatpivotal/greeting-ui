@@ -2,7 +2,6 @@ package io.pivotal.fortune;
 
 import io.pivotal.GreetingUIApplication;
 import org.assertj.core.api.BDDAssertions;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,8 @@ import org.springframework.test.context.junit4.SpringRunner;
         "spring.application.name=greeting-ui",
         "spring.cloud.circuit.breaker.enabled=false",
         "hystrix.stream.queue.enabled=false",
-        "logging.level.org.apache.http=DEBUG"})
+        "logging.level.io.pivotal.fortune=DEBUG",
+        "logging.level.org.springframework.web.client.RestTemplate=DEBUG"})
 @AutoConfigureStubRunner(
     ids = {"io.pivotal:fortune-service:+"},
     stubsMode = StubRunnerProperties.StubsMode.REMOTE,
