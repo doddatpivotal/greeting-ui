@@ -1,6 +1,7 @@
 package smoke;
 
 import org.assertj.core.api.BDDAssertions;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,7 +24,7 @@ public class SmokeTests {
 	@Test
 	public void should_return_a_fortune() {
 		ResponseEntity<String> response = this.restTemplate
-				.getForEntity("http://" + this.applicationUrl + "/", String.class);
+				.getForEntity("https://" + this.applicationUrl + "/", String.class);
 
 		BDDAssertions.then(response.getStatusCodeValue()).isEqualTo(200);
 

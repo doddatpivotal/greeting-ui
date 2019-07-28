@@ -7,21 +7,28 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
+import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = GreetingUIApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE,
-        properties = {"spring.application.name=greeting-ui", "spring.cloud.circuit.breaker.enabled=false", "hystrix.stream.queue.enabled=false"})
-@AutoConfigureStubRunner(ids = {"io.pivotal:fortune-service:1.0.0.M1-20180725_221358-VERSION"},
-//@AutoConfigureStubRunner(ids = {"io.pivotal:fortune-service:+"},
-        repositoryRoot = "${REPO_WITH_BINARIES}"
-        //workOffline = true
-
+    properties = {
+        "spring.application.name=greeting-ui",
+        "spring.cloud.circuit.breaker.enabled=false",
+        "hystrix.stream.queue.enabled=false",
+        "logging.level.io.pivotal.fortune=DEBUG",
+        "logging.level.org.springframework.web.client.RestTemplate=DEBUG"})
+@AutoConfigureStubRunner(
+    ids = {"io.pivotal:fortune-service:+"},
+    stubsMode = StubRunnerProperties.StubsMode.REMOTE,
+    repositoryRoot = "${REPO_WITH_BINARIES}"
 )
 
 public class FortuneServiceTests {
 
-    @Autowired FortuneService fortuneService;
+    @Autowired
+    FortuneService fortuneService;
+
 
     @Test
     public void shouldSendRequestToFortune() {
