@@ -1,9 +1,0 @@
----
-applications:
-# the name of stubrunner has to correspond to the one in sc-pipelines manifest
-- name: stubrunner
-  timeout: 120
-  services:
-  - service-registry
-  env:
-    JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
