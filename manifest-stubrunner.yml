@@ -1,0 +1,10 @@
+---
+applications:
+- name: stubrunner
+  timeout: 120
+  services:
+  - service-registry
+  env:
+    JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
+    TRUST_CERTS: api.run.pivotal.io
+----
