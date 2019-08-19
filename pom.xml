@@ -100,7 +100,7 @@
     <distributionManagement>
         <repository>
             <id>${distribution.management.release.id}</id>
-            <url>${distribution.management.release.url}</url>
+            <url>${distribution.management.release.url};publish=1</url>
         </repository>
     </distributionManagement>
 
